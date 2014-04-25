@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Name=harbour-2048
+Name=2048
 Icon=harbour-2048
 Exec=harbour-2048
 
