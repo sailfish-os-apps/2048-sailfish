@@ -32,21 +32,55 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: "My Cover"
-    }
-
     CoverActionList {
-        id: coverAction
-
+        enabled: true;
         CoverAction {
-            iconSource: "image://theme/icon-cover-next"
+            iconSource: "image://theme/icon-l-left"
+            onTriggered: app.size--;
         }
-
         CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+            iconSource: "image://theme/icon-l-right"
+            onTriggered: app.size++;
+        }
+    }
+    Column {
+        spacing: Theme.paddingMedium;
+        anchors.leftMargin: Theme.paddingMedium;
+        Column {
+            Label {
+                font.pixelSize: Theme.fontSizeMedium;
+                color: Theme.primaryColor;
+                text: "Size: ";
+            }
+            Label {
+                font.pixelSize: Theme.fontSizeLarge;
+                color: Theme.primaryColor;
+                text: "   " + app.size;
+            }
+        }
+        Column {
+            Label {
+                font.pixelSize: Theme.fontSizeMedium;
+                color: Theme.primaryColor;
+                text: "Current best tile: ";
+            }
+            Label {
+                font.pixelSize: Theme.fontSizeLarge;
+                color: Theme.primaryColor;
+                text: "   " + app.playground.bestTile;
+            }
+        }
+        Column {
+            Label {
+                font.pixelSize: Theme.fontSizeMedium;
+                color: Theme.primaryColor;
+                text: "Best tile ever: ";
+            }
+            Label {
+                font.pixelSize: Theme.fontSizeLarge;
+                color: Theme.primaryColor;
+                text: "   " + app.bestEver;
+            }
         }
     }
 }
