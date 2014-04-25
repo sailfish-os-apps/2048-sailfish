@@ -21,7 +21,6 @@ OTHER_FILES += qml/harbour-2048.qml \
     rpm/harbour-2048.changes.in \
     rpm/harbour-2048.spec \
     rpm/harbour-2048.yaml \
-    translations/*.ts \
     harbour-2048.desktop \
     qml/pages/MainPage.qml \
     qml/GameComponent/GamePlayground.qml \
@@ -33,6 +32,6 @@ OTHER_FILES += qml/harbour-2048.qml \
 
 # to disable building translations every time, comment out the
 # following CONFIG line
-CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-2048-de.ts
+#CONFIG += sailfishapp_i18n
+#TRANSLATIONS += translations/harbour-2048-de.ts
 
