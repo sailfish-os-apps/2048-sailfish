@@ -82,13 +82,13 @@ Rectangle {
                     target: tile;
                     property: "x";
                     to: 0;
-                    duration: 150;
+                    duration: 100;
                 }
                 PropertyAnimation {
                     target: tile;
                     property: "y";
                     to: 0;
-                    duration: 150;
+                    duration: 100;
                 }
             }
             ScriptAction {
