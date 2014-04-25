@@ -52,7 +52,6 @@ Page {
         else {
             app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size});
         }
-
     }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
@@ -157,7 +156,6 @@ Page {
                     Storage.setLabel("best" + app.size, bestTile);
                     app.bestEver = bestTile;
                 }
-
             }
         }
     }

@@ -54,7 +54,6 @@ ApplicationWindow
         if (bestEver) {
             app.bestEver = bestEver;
         }
-
     }
 }
 
