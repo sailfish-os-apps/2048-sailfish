@@ -1,0 +1,38 @@
+# NOTICE:
+#
+# Application name defined in TARGET has a corresponding QML filename.
+# If name defined in TARGET is changed, the following needs to be done
+# to match new name:
+#   - corresponding QML filename must be changed
+#   - desktop icon filename must be changed
+#   - desktop filename must be changed
+#   - icon definition filename in desktop file must be changed
+#   - translation filenames have to be changed
+
+# The name of your application
+TARGET = harbour-2048
+
+CONFIG += sailfishapp
+
+SOURCES += src/harbour-2048.cpp
+
+OTHER_FILES += qml/harbour-2048.qml \
+    qml/cover/CoverPage.qml \
+    rpm/harbour-2048.changes.in \
+    rpm/harbour-2048.spec \
+    rpm/harbour-2048.yaml \
+    translations/*.ts \
+    harbour-2048.desktop \
+    qml/pages/MainPage.qml \
+    qml/GameComponent/GamePlayground.qml \
+    qml/GameComponent/SwipeArea.qml \
+    qml/GameComponent/Tile.qml \
+    qml/GameComponent/Lose.qml \
+    qml/GameComponent/helper.js \
+    qml/storage.js
+
+# to disable building translations every time, comment out the
+# following CONFIG line
+CONFIG += sailfishapp_i18n
+TRANSLATIONS += translations/harbour-2048-de.ts
+
