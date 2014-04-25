@@ -2,3 +2,4 @@
 *.spec
 translations/*
 *.in
+*.autosave
