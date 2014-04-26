@@ -2,18 +2,6 @@ import QtQuick 2.0;
 import Sailfish.Silica 1.0;
 
 CoverBackground {
-    CoverActionList {
-        enabled: true;
-
-        CoverAction {
-            iconSource: "image://theme/icon-l-left";
-            onTriggered: app.size--;
-        }
-        CoverAction {
-            iconSource: "image://theme/icon-l-right";
-            onTriggered: app.size++;
-        }
-    }
     Column {
         spacing: Theme.paddingSmall;
         anchors {
@@ -26,9 +14,11 @@ CoverBackground {
                 left: parent.left;
                 right: parent.right;
             }
+
             Label {
                 text: "Size";
                 color: Theme.primaryColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeMedium;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -39,6 +29,7 @@ CoverBackground {
             Label {
                 text: app.size;
                 color: Theme.highlightColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeLarge;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -56,6 +47,7 @@ CoverBackground {
             Label {
                 text: "Current best tile";
                 color: Theme.primaryColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeMedium;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -66,6 +58,7 @@ CoverBackground {
             Label {
                 text: app.playground.bestTile;
                 color: Theme.highlightColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeLarge;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -83,6 +76,7 @@ CoverBackground {
             Label {
                 text: "Best tile ever";
                 color: Theme.primaryColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeMedium;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -93,6 +87,7 @@ CoverBackground {
             Label {
                 text: app.bestEver;
                 color: Theme.highlightColor;
+                height: contentHeight;
                 font.pixelSize: Theme.fontSizeLarge;
                 horizontalAlignment: Text.AlignHCenter;
                 anchors {
@@ -102,6 +97,24 @@ CoverBackground {
             }
         }
     }
+    CoverActionList {
+        CoverAction {
+            iconSource: "image://theme/icon-l-left";
+            onTriggered: {
+                if (app.size > 2) {
+                    app.size--;
+                    app.activate ();
+                }
+            }
+        }
+        CoverAction {
+            iconSource: "image://theme/icon-l-right";
+            onTriggered: {
+                if (app.size < 10) {
+                    app.size++;
+                    app.activate ();
+                }
+            }
+        }
+    }
 }
-
-
