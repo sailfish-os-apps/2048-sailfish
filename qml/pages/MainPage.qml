@@ -21,6 +21,28 @@ Page {
         else {
             app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size });
         }
+        dealWithMessage();
+    }
+
+    function dealWithMessage () {
+        if (size === 2 && currentMessage !== 5) {
+            currentMessage = 3;
+        }
+        if (size === 3) {
+            currentMessage = 2;
+        }
+        if (size === 4) {
+            currentMessage = 0;
+        }
+        if (app.size === 2 && bestTile >= 16){
+            app.currentMessage = 4;
+        }
+        if (app.size === 3 && bestTile >= 256) {
+            app.currentMessage = 6;
+        }
+        if (app.size === 4 && bestTile >= 2048) {
+            app.currentMessage = 1;
+        }
     }
 
     SilicaFlickable {
@@ -137,16 +159,8 @@ Page {
                 if (!bestEver || bestTile > bestEver) {
                     Storage.setLabel ("best" + app.size, bestTile);
                     app.bestEver = bestTile;
-                    if (app.size === 2 && bestTile >= 16){
-                        app.currentMessage = 4;
-                    }
-                    if (app.size === 3 && bestTile >= 256) {
-                        app.currentMessage = 6;
-                    }
-                    if (app.size === 4 && bestTile >= 2048) {
-                        app.currentMessage = 1;
-                    }
                 }
+                dealWithMessage();
             }
         }
     }

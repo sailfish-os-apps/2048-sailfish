@@ -50,16 +50,6 @@ ApplicationWindow
             currentMessage = 5;
             size++;
         }
-        if (size === 2 && currentMessage !== 5) {
-            currentMessage = 3;
-        }
-        if (size === 3) {
-            currentMessage = 2;
-        }
-        if (size === 4) {
-            currentMessage = 0;
-        }
-
         mainPage.loadPlayground();
     }
 
@@ -76,13 +66,13 @@ ApplicationWindow
     }
 
     property var messages: [
-        "Can you get the 2048 tile ?",
-        "Alright, you got it, but seriously, wasn't it too easy ? What about you try to get the next one, the 4096 tile",
-        "Wanna go easy ? why not, but still, can you get the 256 tile ?",
-        "Are you mising kinder garden ? You have to get the 16 tile",
-        "I won't congratulate you, that was way too easy. Try a bigger board",
-        "No ! Let's stay serious, a one-sized board ? I won't allow it, isn't 2 easy enough ?",
-        "NOT BAD !! To the next one ! The four-sized board"
+        "Can you reach the 2048 tile?",
+        "Alright, you got it, but seriously, wasn't it too simple? Say you reach the next one, 4096",
+        "Wanna go easy? why not, but still, can you reach the 256 tile?",
+        "Are you missing kindergarten? You have to reach the 16 tile",
+        "Bravo!!! You're sooooo good",
+        "No! Don't be silly, a one-sized board? I won't allow it, isn't 2 easy enough?",
+        "NOT BAD!! To the next one! The four-sized board"
     ]
 
 }
