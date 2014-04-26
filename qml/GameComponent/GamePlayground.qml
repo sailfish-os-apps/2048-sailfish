@@ -1,13 +1,8 @@
 import QtQuick 2.0
 import "helper.js" as Helper
 
-Rectangle {
+Item {
     id: playground;
-    color: Qt.rgba(1,1,1,0.2);
-    radius: width / 50;
-    border.width: padding;
-    border.color: Qt.rgba(1,1,1,0.2);
-    focus: true;
 
     property int size         : 3;
     property int bestTile     : 0;
@@ -19,15 +14,7 @@ Rectangle {
     property var rightVectors : Helper.getVectors("right");
     property var upVectors    : Helper.getVectors("up");
     property var downVectors  : Helper.getVectors("down");
-    readonly property var colors : {
-        var tmp = {};
-        var max = size * size;
-        for (var idx = 1; idx < max; idx++) {
-            tmp [Math.pow (2, idx)] = Qt.hsla (idx / max, 0.85, 0.65, 0.6);
-        }
-        //console.log (JSON.stringify (tmp));
-        return tmp;
-    }
+
     signal justMoved;
 
     function addTiles (number) {
@@ -37,7 +24,7 @@ Rectangle {
             var random = Math.floor(Math.random() * freeSpace.length);
             var index = freeSpace[random];
             if (tiles [index] === undefined) {
-                tiles [index] = componentTile.createObject (slots [index], { "value" : 2, "colors": colors });
+                tiles [index] = componentTile.createObject (slots [index], { "value" : 2 });
             }
             justMoved();
         }
@@ -86,7 +73,12 @@ Rectangle {
             }
         }
     }
-
+    Rectangle {
+        color: "white";
+        opacity: 0.05;
+        radius: width / 50;
+        anchors.fill: parent;
+    }
     SwipeArea {
         repeat: false;
         anchors.fill: parent;
@@ -95,7 +87,6 @@ Rectangle {
         onMoveUp:    { move (upVectors);    }
         onMoveDown:  { move (downVectors);  }
     }
-
     Grid {
         id: backGrid;
         rows: tilesGrid.rows;
@@ -106,14 +97,14 @@ Rectangle {
         Repeater {
             model: (size * size);
             delegate: Rectangle {
-                color: Qt.rgba(0,0,0,0.2);
+                color: "black";
                 radius: (width * 0.05);
                 width: tilesGrid.itemSize;
                 height: tilesGrid.itemSize;
+                opacity: 0.15;
             }
         }
     }
-
     Grid {
         id: tilesGrid;
         rows: size;
@@ -123,12 +114,34 @@ Rectangle {
             fill: parent;
             margins: padding;
         }
+        Component.onCompleted: {
+            //console.debug("left vectors :", leftVectors);
+            //console.debug("right vectors :", rightVectors)
+            //console.debug("up vectors :", upVectors)
+            //console.debug("down vectors :", downVectors)
+            if (game !== undefined) {
+                for (var i in game) {
+                    var value = parseInt (game [i]);
+                    var slot = slots [i];
+                    if (value > 0) {
+                        tiles [i] = componentTile.createObject (slot, { "value" : value });
+                        if (value > bestTile) {
+                            bestTile = value;
+                        }
+                    }
+                }
+            }
+            else {
+                tiles [size * size - 1] = undefined;
+                addTiles(2);
+            }
+        }
 
         property real itemSize : (((width + spacing) / columns) - spacing);
 
         Repeater {
             model: size * size;
-            Rectangle {
+            delegate: Rectangle {
                 id: tileSlot;
                 color: "transparent";
                 radius: (width * 0.05);
@@ -137,40 +150,14 @@ Rectangle {
                 Component.onCompleted: { playground.slots [model.index] = tileSlot; }
             }
         }
-
-        Component.onCompleted: {
-            //console.debug("left vectors :", leftVectors);
-            //console.debug("right vectors :", rightVectors)
-            //console.debug("up vectors :", upVectors)
-            //console.debug("down vectors :", downVectors)
-            if (game !== undefined) {
-                for (var i in game) {
-                    var value = game[i];
-                    var slot = slots[i];
-                    if (value != 0) {
-                        tiles [i] = componentTile.createObject (slot, { "value" : value, "colors": colors });
-                        if (value > bestTile) {
-                            bestTile = value;
-                        }
-                    }
-                }
-            }
-            else {
-                tiles[size * size - 1] = undefined;
-                addTiles(2);
-            }
-        }
     }
-
-
     Lose {
         id: lose;
         anchors.fill: parent;
         visible: false;
-
         onClicked: {
             visible = false;
-            restartGame();
+            restartGame ();
         }
     }
 }

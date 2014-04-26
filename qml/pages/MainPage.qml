@@ -60,7 +60,7 @@ Page {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: parent.height / 3;
+        anchors.bottom: gameContainer.top;
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
@@ -117,7 +117,7 @@ Page {
             }
         }
     }
-    SilicaFlickable {
+    Item {
         id: gameContainer;
         height: width;
         anchors {
@@ -125,20 +125,16 @@ Page {
             left: parent.left;
             right: parent.right;
         }
-        Component.onCompleted: {
-            loadPlayground();
-        }
+        Component.onCompleted: { loadPlayground (); }
     }
     Component {
         id: playgroundComponent;
+
         GamePlayground {
-            anchors.centerIn: parent;
-
-            property int padding: 30;
-
-            width: Math.min(parent.width - padding, parent.height - padding);
-            height: width;
-
+            anchors {
+                fill: parent;
+                margins: padding;
+            }
             onJustMoved: {
                 var game = [];
                 for (var i = 0; i < tiles.length; i++) {
@@ -174,6 +170,8 @@ Page {
                     }
                 }
             }
+
+            property int padding: 30;
         }
     }
 }

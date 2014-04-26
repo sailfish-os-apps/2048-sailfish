@@ -1,48 +1,26 @@
-import QtQuick 2.0
+import QtQuick 2.0;
+import Sailfish.Silica 1.0;
 
-Rectangle {
+Item {
     id: tile;
     width: parent.width;
     height: parent.height;
-    scale: 0.7;
-    anchors.centerIn: parent;
-    radius: parent.radius;
-    color: (colors [value] || "magenta");
-    z:1000 + parent.z;
+    scale: 0.65;
+    Component.onCompleted: PropertyAnimation {
+        target: tile;
+        property: "scale";
+        to: 1.0;
+        duration: 250;
+    }
 
-
-    property Item newParent;
-    property Item mergedWith;
     property int value: 0;
-    property var colors;
 
-    signal hasMerged;
+    signal hasMerged ();
 
-    Text {
-        anchors.centerIn: parent;
-        text: value;
-        font.pixelSize: 30;
-    }
-
-    Behavior on scale {
-        SequentialAnimation {
-            PropertyAnimation { duration: 100 }
-            ScriptAction {script: {anchors.centerIn = undefined}}
-            PropertyAnimation { to:1.0; duration: 100 }
-        }
-    }
-
-    function upgrade() {
+    function upgrade () {
         value *= 2;
-        hasMerged();
-        //console.debug("bump", value);
-        tile.scale = 1.2;
+        hasMerged ();
     }
-
-    Component.onCompleted: {
-        scale = 1;
-    }
-
     function moveTo (newParent, mergeWith) { // call this and pass another Tile item as param
         if (newParent) {
             component.createObject (newParent, {
@@ -52,6 +30,29 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        radius: tile.parent.radius;
+        color: Theme.secondaryHighlightColor;
+        opacity: 0.45;
+        anchors.fill: parent;
+    }
+    Label {
+        text: value;
+        color: Theme.primaryColor;
+        verticalAlignment: Text.AlignVCenter;
+        horizontalAlignment: Text.AlignHCenter;
+        fontSizeMode: Text.Fit;
+        minimumPixelSize: Theme.fontSizeTiny;
+        font {
+            bold: true;
+            family: Theme.fontFamilyHeading;
+            pixelSize: Theme.fontSizeHuge;
+        }
+        anchors {
+            fill: parent;
+            margins: Theme.paddingSmall;
+        }
+    }
     Component {
         id: component;
 
@@ -60,11 +61,7 @@ Rectangle {
             loops: 1;
             running: false;
             alwaysRunToEnd: true;
-            onStopped: {
-                if (mergeWith) {
-                    tile.destroy ();
-                }
-            }
+            onStopped: { anim.destroy (); }
             Component.onCompleted: {
                 var tmp = anim.newParent.mapFromItem (tile, tile.x, tile.y);
                 //console.debug ("tmp", JSON.stringify (tmp));
@@ -95,9 +92,22 @@ Rectangle {
                 script: {
                     if (anim.mergeWith) {
                         console.debug ("merge", tile,"(", value, ")" ,"with", anim.mergeWith);
-                        anim.mergeWith.upgrade();
+                        anim.mergeWith.upgrade ();
+                        tile.destroy ();
                     }
                 }
+            }
+            PropertyAnimation {
+                target: anim.mergeWith;
+                property: "scale";
+                to: 1.25;
+                duration: 150;
+            }
+            PropertyAnimation {
+                target: anim.mergeWith;
+                property: "scale";
+                to: 1.0;
+                duration: 150;
             }
         }
     }
