@@ -89,7 +89,7 @@ Page {
 
                 IconButton {
                    icon.source: "image://theme/icon-l-left"
-                   onClicked: {app.size--;loadPlayground();}
+                   onClicked: app.size--;
                 }
                 Label {
                     anchors.verticalCenter: parent.verticalCenter;
@@ -99,13 +99,21 @@ Page {
                 }
                 IconButton {
                     icon.source: "image://theme/icon-l-right"
-                   onClicked: {app.size++;loadPlayground();}
+                   onClicked: app.size++;
                 }
             }
             Label {
                 color: Theme.highlightColor
                 font.family: Theme.fontFamilyHeading
                 text: "Best tile ever : " + app.bestEver;
+            }
+            TextArea {
+                anchors.left: parent.left;
+                anchors.right: parent.right;
+                color: Theme.primaryColor
+                font.family: Theme.fontFamilyHeading;
+                readOnly: true;
+                text: app.messages[app.currentMessage];
             }
         }
     }
@@ -155,6 +163,15 @@ Page {
                 if (!bestEver || bestTile > bestEver) {
                     Storage.setLabel("best" + app.size, bestTile);
                     app.bestEver = bestTile;
+                    if (app.size === 2 && bestTile >= 16){
+                        app.currentMessage = 4;
+                    }
+                    if (app.size === 3 && bestTile >= 256) {
+                        app.currentMessage = 6;
+                    }
+                    if (app.size === 4 && bestTile >= 2048) {
+                        app.currentMessage = 1;
+                    }
                 }
             }
         }
