@@ -103,7 +103,6 @@ CoverBackground {
             onTriggered: {
                 if (app.size > 2) {
                     app.size--;
-                    app.activate ();
                 }
             }
         }
@@ -112,7 +111,6 @@ CoverBackground {
             onTriggered: {
                 if (app.size < 10) {
                     app.size++;
-                    app.activate ();
                 }
             }
         }
