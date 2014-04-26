@@ -21,7 +21,7 @@ Page {
         else {
             app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size });
         }
-        dealWithMessage();
+        dealWithMessage ();
     }
 
     function dealWithMessage () {
@@ -34,17 +34,21 @@ Page {
         if (size === 4) {
             currentMessage = 0;
         }
-        if (app.size === 2 && bestTile >= 16){
+        if (app.size === 2 && app.playground && app.playground.bestTile >= 16){
             app.currentMessage = 4;
         }
-        if (app.size === 3 && bestTile >= 256) {
+        if (app.size === 3 && app.playground && app.playground.bestTile >= 256) {
             app.currentMessage = 6;
         }
-        if (app.size === 4 && bestTile >= 2048) {
+        if (app.size === 4 && app.playground && app.playground.bestTile >= 2048) {
             app.currentMessage = 1;
         }
     }
 
+    Connections {
+        target: app;
+        onSizeChanged: { loadPlayground (); }
+    }
     SilicaFlickable {
         id: control;
         contentHeight: column.height;
@@ -105,7 +109,7 @@ Page {
                 }
             }
             Label {
-                text: app.messages [app.currentMessage];
+                text: (app.messages [app.currentMessage] || "");
                 color: Theme.primaryColor
                 font.family: Theme.fontFamilyHeading;
                 font.pixelSize: Theme.fontSizeSmall;
