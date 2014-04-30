@@ -40,3 +40,10 @@ function getLabel(label) {
     })
     return ret;
 }
+
+function destroyData() {
+    var db = getDatabase();
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('DROP TABLE memory');
+    });
+}
