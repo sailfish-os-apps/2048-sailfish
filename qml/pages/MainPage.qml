@@ -8,6 +8,7 @@ Page {
     id: page;
 
     function loadPlayground () {
+        Storage.initialize();
         if (app.playground) {
             app.playground.destroy ();
         }
