@@ -21,6 +21,11 @@ ApplicationWindow {
         }
     }
 
+    Component.onDestruction: {
+        console.log("Don't mess with me!");
+        playground.save();
+    }
+
     property int size: 4;
     property Item playground : null;
     property int bestEver: 2;

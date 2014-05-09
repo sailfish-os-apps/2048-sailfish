@@ -116,7 +116,10 @@ Page {
                 IconButton {
                     icon.source: "image://theme/icon-l-left";
                     enabled: (app.size > 2);
-                    onClicked: { app.size--; }
+                    onClicked: {
+                        playground.save();
+                        app.size--;
+                    }
                 }
                 Label {
                     text: "Size : %1".arg (app.size);
@@ -127,7 +130,10 @@ Page {
                 IconButton {
                     icon.source: "image://theme/icon-l-right";
                     enabled: (app.size < 10);
-                    onClicked: { app.size++; }
+                    onClicked: {
+                        playground.save();
+                        app.size++;
+                    }
                 }
             }
             Label {
@@ -171,26 +177,11 @@ Page {
                 margins: Theme.paddingLarge;
             }
             onJustMoved: {
-                var game = [];
-                for (var i = 0; i < tiles.length; i++) {
-                    var tile = tiles [i];
-                    if (tile !== undefined && tile !== null) {
-                        game.push (tile.value);
-                    }
-                    else {
-                        game.push (0);
-                    }
-                }
-                console.debug ("tiles", tiles);
-                console.debug (game, game.join (","));
-                Storage.setLabel (app.size, game.join (","));
                 var highscore = Storage.getLabel ("highscore" + app.size);
                 if(!highscore || highscore < playground.score)
                 {
-                    Storage.setLabel ("highscore" + app.size, playground.score);
                     highscore = playground.score;
                 }
-                Storage.setLabel ("score" + app.size, playground.score);
                 app.highscore = highscore;
             }
             onBestTileChanged: {
