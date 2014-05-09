@@ -6,6 +6,7 @@ Item {
 
     property int size         : 3;
     property int bestTile     : 0;
+    property int score        : 0;
     property var slots        : [];
     property var game         : undefined;
     property var tiles        : [];
@@ -59,6 +60,9 @@ Item {
         }
         bestTile = 2;
         addTiles(2);
+        score = 0;
+        var hs = Storage.getLabel ("highscore" + app.size);
+        app.highscore = hs ? hs : 0;
     }
 
     Component {
@@ -66,6 +70,7 @@ Item {
 
         Tile {
             onHasMerged: {
+                score += value;
                 if (value > bestTile) {
                     bestTile = value;
                 }

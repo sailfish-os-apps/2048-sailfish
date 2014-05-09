@@ -22,6 +22,19 @@ Page {
         else {
             app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size });
         }
+        var score = Storage.getLabel ("score" + app.size);
+        if(score)
+        {
+            app.playground.score = score;
+        }
+        var highscore = Storage.getLabel ("highscore" + app.size);
+        if(!highscore)
+        {
+            highscore = 0;
+        }
+
+        app.highscore = highscore;
+
         dealWithMessage ();
     }
 
@@ -69,7 +82,7 @@ Page {
         }
         Column {
             id: column;
-            spacing: Theme.paddingLarge;
+            spacing: Theme.paddingMedium;
             anchors {
                 left: parent.left;
                 right: parent.right;
@@ -78,6 +91,23 @@ Page {
 
             PageHeader {
                 title: (playground ? "Best Tile : %1".arg (playground.bestTile) : "....");
+            }
+
+            Row {
+                spacing: Theme.paddingMedium;
+                anchors.horizontalCenter: parent.horizontalCenter;
+
+                width: parent.width*.6;
+                height: 80;
+                ScoreItem {
+                    label: "SCORE";
+                    value: app.playground.score;
+                }
+                ScoreItem {
+                    label: "BEST";
+                    value: app.highscore;
+                }
+
             }
             Row {
                 spacing: Theme.paddingMedium;
@@ -154,6 +184,14 @@ Page {
                 console.debug ("tiles", tiles);
                 console.debug (game, game.join (","));
                 Storage.setLabel (app.size, game.join (","));
+                var highscore = Storage.getLabel ("highscore" + app.size);
+                if(!highscore || highscore < playground.score)
+                {
+                    Storage.setLabel ("highscore" + app.size, playground.score);
+                    highscore = playground.score;
+                }
+                Storage.setLabel ("score" + app.size, playground.score);
+                app.highscore = highscore;
             }
             onBestTileChanged: {
                 var bestEver = Storage.getLabel ("best" + app.size);
