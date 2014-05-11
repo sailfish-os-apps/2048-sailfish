@@ -1,11 +1,14 @@
 import QtQuick 2.0
+import QtQuick.LocalStorage 2.0
 import "helper.js" as Helper
+import "../storage.js" as Storage;
 
 Item {
     id: playground;
 
     property int size         : 3;
     property int bestTile     : 0;
+    property int score        : 0;
     property var slots        : [];
     property var game         : undefined;
     property var tiles        : [];
@@ -49,7 +52,32 @@ Item {
         justMoved();
     }
 
+    Component.onDestruction: save()
+
+    function saveScore() {
+        Storage.setLabel ("highscore" + app.size, app.highscore);
+        Storage.setLabel ("score" + app.size, playground.score);
+    }
+
+    function save() {
+        saveScore();
+        var game = [];
+        for (var i = 0; i < tiles.length; i++) {
+            var tile = tiles [i];
+            if (tile !== undefined && tile !== null) {
+                game.push (tile.value);
+            }
+            else {
+                game.push (0);
+            }
+        }
+        console.debug ("tiles", tiles);
+        console.debug (game, game.join (","));
+        Storage.setLabel (app.size, game.join (","));
+    }
+
     function restartGame () {
+        saveScore();
         for (var i in tiles) {
             var tile = tiles[i];
             if (tile !== undefined) {
@@ -59,6 +87,9 @@ Item {
         }
         bestTile = 2;
         addTiles(2);
+        score = 0;
+        var hs = Storage.getLabel ("highscore" + app.size);
+        app.highscore = hs ? hs : 0;
     }
 
     Component {
@@ -66,6 +97,7 @@ Item {
 
         Tile {
             onHasMerged: {
+                score += value;
                 if (value > bestTile) {
                     bestTile = value;
                 }

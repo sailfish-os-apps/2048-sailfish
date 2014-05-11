@@ -28,7 +28,8 @@ OTHER_FILES += qml/harbour-2048.qml \
     qml/GameComponent/Tile.qml \
     qml/GameComponent/Lose.qml \
     qml/GameComponent/helper.js \
-    qml/storage.js
+    qml/storage.js \
+    qml/GameComponent/ScoreItem.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
