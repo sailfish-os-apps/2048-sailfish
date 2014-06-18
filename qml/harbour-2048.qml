@@ -9,6 +9,7 @@ ApplicationWindow {
     id: app;
     cover: Component { CoverPage { } }
     initialPage: Component { MainPage { } }
+
     Component.onCompleted: {
         Storage.initialize();
         var size = Storage.getLabel ("size");
@@ -23,11 +24,11 @@ ApplicationWindow {
 
     Component.onDestruction: {
         console.log("Don't mess with me!");
-        playground.save();
+        game.save();
     }
 
     property int size: 4;
-    property Item playground : null;
+    property Item game : null;
     property int bestEver: 2;
     property int highscore: 0;
     property int currentMessage: 0;

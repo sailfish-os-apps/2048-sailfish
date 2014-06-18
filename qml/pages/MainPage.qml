@@ -7,25 +7,25 @@ import "../storage.js" as Storage;
 Page {
     id: page;
 
-    function loadPlayground () {
+    function loadGame () {
         Storage.initialize();
-        if (app.playground) {
-            app.playground.destroy ();
+        if (app.game) {
+            app.game.destroy ();
         }
         var gameValues = Storage.getLabel (app.size);
         if (gameValues) {
             var t = "";
             var game = gameValues.split (",");
             console.debug (game);
-            app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size, "game": game });
+            app.game = gameComponent.createObject (gameContainer, { "size" : app.size, "game": game });
         }
         else {
-            app.playground = playgroundComponent.createObject (gameContainer, { "size" : app.size });
+            app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
         }
         var score = Storage.getLabel ("score" + app.size);
         if(score)
         {
-            app.playground.score = score;
+            app.game.score = score;
         }
         var highscore = Storage.getLabel ("highscore" + app.size);
         if(!highscore)
@@ -48,20 +48,20 @@ Page {
         if (size === 4) {
             currentMessage = 0;
         }
-        if (app.size === 2 && app.playground && app.playground.bestTile >= 16){
+        if (app.size === 2 && app.game && app.game.bestTile >= 16){
             app.currentMessage = 4;
         }
-        if (app.size === 3 && app.playground && app.playground.bestTile >= 256) {
+        if (app.size === 3 && app.game && app.game.bestTile >= 256) {
             app.currentMessage = 6;
         }
-        if (app.size === 4 && app.playground && app.playground.bestTile >= 2048) {
+        if (app.size === 4 && app.game && app.game.bestTile >= 2048) {
             app.currentMessage = 1;
         }
     }
 
     Connections {
         target: app;
-        onSizeChanged: { loadPlayground (); }
+        onSizeChanged: { loadGame (); }
     }
     SilicaFlickable {
         id: control;
@@ -77,7 +77,7 @@ Page {
             MenuItem {
                 text: "Restart game";
                 font.family: Theme.fontFamilyHeading;
-                onClicked: playground.restartGame ();
+                onClicked: app.game.restartGame ();
             }
         }
         Column {
@@ -90,7 +90,7 @@ Page {
             }
 
             PageHeader {
-                title: (playground ? "Best Tile : %1".arg (playground.bestTile) : "....");
+                title: (app.game ? "Best Tile : %1".arg (app.game.bestTile) : "....");
             }
 
             Row {
@@ -108,7 +108,7 @@ Page {
                     icon.source: "image://theme/icon-l-left";
                     enabled: (app.size > 2);
                     onClicked: {
-                        playground.save();
+                        app.game.save();
                         app.size--;
                     }
                 }
@@ -122,7 +122,7 @@ Page {
                     icon.source: "image://theme/icon-l-right";
                     enabled: (app.size < 10);
                     onClicked: {
-                        playground.save();
+                        app.game.save();
                         app.size++;
                     }
                 }
@@ -157,23 +157,15 @@ Page {
             right: parent.right;
             bottom: parent.bottom;
         }
-        Component.onCompleted: { loadPlayground (); }
+        Component.onCompleted: { loadGame (); }
     }
     Component {
-        id: playgroundComponent;
+        id: gameComponent;
 
         Game {
             anchors {
                 fill: parent;
                 margins: Theme.paddingLarge;
-            }
-            onJustMoved: {
-                var highscore = Storage.getLabel ("highscore" + app.size);
-                if(!highscore || highscore < playground.score)
-                {
-                    highscore = playground.score;
-                }
-                app.highscore = highscore;
             }
             onBestTileChanged: {
                 var bestEver = Storage.getLabel ("best" + app.size);

@@ -56,7 +56,7 @@ CoverBackground {
                 }
             }
             Label {
-                text: app.playground.bestTile;
+                text: app.game.bestTile;
                 color: Theme.highlightColor;
                 height: contentHeight;
                 font.pixelSize: Theme.fontSizeLarge;
