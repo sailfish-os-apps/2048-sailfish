@@ -26,11 +26,14 @@ ApplicationWindow {
         game.save();
     }
 
-    property int size: 4;
-    property Item game : null;
-    property int bestEver: 2;
-    property int highscore: 0;
-    property int currentMessage: 0;
+    property int size           : 4;
+    property string difficulty  : "Normal";
+    property string mode        : "Classic";
+    property int blizt          : 0;
+    property Item game          : null;
+    property int bestEver       : 2;
+    property int highscore      : 0;
+    property int currentMessage : 0;
     property var messages: [
         "Can you reach the 2048 tile?",
         "Alright, you got it, but seriously, wasn't it too simple? Say you reach the next one, 4096",
