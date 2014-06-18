@@ -23,13 +23,7 @@ OTHER_FILES += qml/harbour-2048.qml \
     rpm/harbour-2048.yaml \
     harbour-2048.desktop \
     qml/pages/MainPage.qml \
-    qml/GameComponent/GamePlayground.qml \
-    qml/GameComponent/SwipeArea.qml \
-    qml/GameComponent/Tile.qml \
-    qml/GameComponent/Lose.qml \
-    qml/GameComponent/helper.js \
     qml/storage.js \
-    qml/GameComponent/ScoreItem.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line

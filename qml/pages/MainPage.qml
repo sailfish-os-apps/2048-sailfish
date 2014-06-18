@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
-import "../GameComponent";
+import "../Game";
 import "../storage.js" as Storage;
 
 Page {
@@ -99,15 +99,6 @@ Page {
 
                 width: parent.width*.6;
                 height: 80;
-                ScoreItem {
-                    label: "SCORE";
-                    value: app.playground.score;
-                }
-                ScoreItem {
-                    label: "BEST";
-                    value: app.highscore;
-                }
-
             }
             Row {
                 spacing: Theme.paddingMedium;
@@ -171,7 +162,7 @@ Page {
     Component {
         id: playgroundComponent;
 
-        GamePlayground {
+        Game {
             anchors {
                 fill: parent;
                 margins: Theme.paddingLarge;
