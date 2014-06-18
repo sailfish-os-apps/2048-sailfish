@@ -1,0 +1,3 @@
+[submodule "qml/Game"]
+	path = qml/Game
+	url = git@gitorious.org:bluemagma-qml-games/kibitiles.git
