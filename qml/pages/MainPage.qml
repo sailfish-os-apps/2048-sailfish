@@ -62,7 +62,9 @@ Page {
 
     Connections {
         target: app;
-        onSizeChanged: { loadGame (); }
+        onSizeChanged       : { loadGame (); }
+        onDifficultyChanged : { loadGame (); }
+        onModeChanged       : { loadGame (); }
     }
     SilicaFlickable {
         id: control;
@@ -165,6 +167,7 @@ Page {
 
         Game {
             design: Component { SailTileDesign {} }
+            mode: modes[app.mode + app.difficulty]
             anchors {
                 fill: parent;
                 margins: Theme.paddingLarge;
