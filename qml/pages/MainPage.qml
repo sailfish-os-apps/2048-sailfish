@@ -87,13 +87,14 @@ Page {
             PageHeader {
                 title: (app.game ? "Best Tile : %1".arg (app.game.bestTile) : "....");
             }
-
-            Row {
-                spacing: Theme.paddingMedium;
-                anchors.horizontalCenter: parent.horizontalCenter;
-
-                width: parent.width*.6;
-                height: 80;
+            Label {
+                color: Theme.highlightColor
+                font.family: Theme.fontFamilyHeading
+                text: "Mode : " + app.mode + " " + app.difficulty + " " + app.size;
+                anchors {
+                    left: parent.left;
+                    right: parent.right;
+                }
             }
             Label {
                 color: Theme.highlightColor
