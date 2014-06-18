@@ -18,7 +18,7 @@ Page {
             var t = "";
             var game = gameValues.split (",");
             console.debug (game);
-            app.game = gameComponent.createObject (gameContainer, { "size" : app.size, "game": game });
+            app.game = gameComponent.createObject (gameContainer, { "size" : app.size, "initState": game });
         }
         else {
             app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
@@ -181,6 +181,7 @@ Page {
                 }
                 dealWithMessage();
             }
+            onSave: { Storage.setLabel (app.size, initState.join (",")); }
         }
     }
 }
