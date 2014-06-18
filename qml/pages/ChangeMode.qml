@@ -25,7 +25,7 @@ Page {
                 color: Theme.primaryColor;
                 antialiasing: true;
                 fontSizeMode: Text.Fit;
-                minimumPixelSize: Theme.fontSizeTiny;
+                font.pixelSize: Theme.fontSizeHuge;
                 anchors.left: parent.left
                 anchors.margins: Theme.paddingLarge;
                 ContextMenu {
@@ -58,7 +58,7 @@ Page {
                 color: Theme.primaryColor;
                 antialiasing: true;
                 fontSizeMode: Text.Fit;
-                minimumPixelSize: Theme.fontSizeTiny;
+                font.pixelSize: Theme.fontSizeHuge;
                 anchors.left: parent.left
                 anchors.margins: Theme.paddingLarge;
                 ContextMenu {
@@ -83,7 +83,7 @@ Page {
                 color: Theme.primaryColor;
                 antialiasing: true;
                 fontSizeMode: Text.Fit;
-                minimumPixelSize: Theme.fontSizeTiny;
+                font.pixelSize: Theme.fontSizeHuge;
                 anchors.left: parent.left
                 anchors.margins: Theme.paddingLarge;
                 ContextMenu {
