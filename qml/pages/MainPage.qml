@@ -13,7 +13,7 @@ Page {
         if (app.game) {
             app.game.destroy ();
         }
-        var gameValues = Storage.getLabel (app.size);
+        var gameValues = Storage.getLabel (app.mode + app.difficulty + app.size);
         if (gameValues) {
             var t = "";
             var game = gameValues.split (",");
@@ -23,19 +23,6 @@ Page {
         else {
             app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
         }
-        var score = Storage.getLabel ("score" + app.size);
-        if(score)
-        {
-            app.game.score = score;
-        }
-        var highscore = Storage.getLabel ("highscore" + app.size);
-        if(!highscore)
-        {
-            highscore = 0;
-        }
-
-        app.highscore = highscore;
-
         dealWithMessage ();
     }
 
@@ -78,9 +65,14 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Change Mode";
+                font.family: Theme.fontFamilyHeading;
+                onClicked: pageStack.push("ChangeMode.qml");
+            }
+            MenuItem {
                 text: "Restart game";
                 font.family: Theme.fontFamilyHeading;
-                onClicked: app.game.restartGame ();
+                onClicked: app.game.restart();
             }
         }
         Column {
@@ -102,33 +94,6 @@ Page {
 
                 width: parent.width*.6;
                 height: 80;
-            }
-            Row {
-                spacing: Theme.paddingMedium;
-                anchors.horizontalCenter: parent.horizontalCenter;
-
-                IconButton {
-                    icon.source: "image://theme/icon-l-left";
-                    enabled: (app.size > 2);
-                    onClicked: {
-                        app.game.save();
-                        app.size--;
-                    }
-                }
-                Label {
-                    text: "Size : %1".arg (app.size);
-                    color: Theme.highlightColor;
-                    font.family: Theme.fontFamilyHeading;
-                    anchors.verticalCenter: parent.verticalCenter;
-                }
-                IconButton {
-                    icon.source: "image://theme/icon-l-right";
-                    enabled: (app.size < 10);
-                    onClicked: {
-                        app.game.save();
-                        app.size++;
-                    }
-                }
             }
             Label {
                 color: Theme.highlightColor
@@ -184,7 +149,7 @@ Page {
                 }
                 dealWithMessage();
             }
-            onSave: { Storage.setLabel (app.size, initState.join (",")); }
+            onSave: { Storage.setLabel (app.mode + app.difficulty + app.size, initState.join (",")); }
         }
     }
 }

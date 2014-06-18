@@ -27,20 +27,20 @@ Page {
                 fontSizeMode: Text.Fit;
                 minimumPixelSize: Theme.fontSizeTiny;
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingLarge;
+                anchors.margins: Theme.paddingLarge;
                 ContextMenu {
                     id: menuDifficulty;
                     MenuItem {
                         text: "Easy"
-                        onClicked: app.difficulty = "Easy";
+                        onClicked: {app.game.save(); app.difficulty = "Easy";}
                     }
                     MenuItem {
                         text: "Normal"
-                        onClicked: app.difficulty = "Normal";
+                        onClicked: {app.game.save(); app.difficulty = "Normal";}
                     }
                     MenuItem {
                         text: "Hard"
-                        onClicked: app.difficulty = "Hard";
+                        onClicked: {app.game.save(); app.difficulty = "Hard";}
                     }
                 }
             }
@@ -60,12 +60,12 @@ Page {
                 fontSizeMode: Text.Fit;
                 minimumPixelSize: Theme.fontSizeTiny;
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingLarge;
+                anchors.margins: Theme.paddingLarge;
                 ContextMenu {
                     id: menuMode;
                     MenuItem {
                         text: "Classic"
-                        onClicked: app.mode = "Classic";
+                        onClicked: {app.game.save(); app.mode = "Classic";}
                     }
                 }
             }
@@ -85,28 +85,28 @@ Page {
                 fontSizeMode: Text.Fit;
                 minimumPixelSize: Theme.fontSizeTiny;
                 anchors.left: parent.left
-                anchors.leftMargin: Theme.paddingLarge;
+                anchors.margins: Theme.paddingLarge;
                 ContextMenu {
                     id: menuSize;
                     MenuItem {
                         text: "2"
-                        onClicked: app.size = 2;
+                        onClicked: {app.game.save(); app.size = 2}
                     }
                     MenuItem {
                         text: "3"
-                        onClicked: app.size = 3;
+                        onClicked: {app.game.save(); app.size = 3}
                     }
                     MenuItem {
                         text: "4"
-                        onClicked: app.size = 4;
+                        onClicked: {app.game.save(); app.size = 4}
                     }
                     MenuItem {
                         text: "5"
-                        onClicked: app.size = 5;
+                        onClicked: {app.game.save(); app.size = 5}
                     }
                     MenuItem {
                         text: "6"
-                        onClicked: app.size = 6;
+                        onClicked: {app.game.save(); app.size = 6}
                     }
                 }
             }
