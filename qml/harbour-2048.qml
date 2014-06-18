@@ -23,7 +23,6 @@ ApplicationWindow {
     }
 
     Component.onDestruction: {
-        console.log("Don't mess with me!");
         game.save();
     }
 
