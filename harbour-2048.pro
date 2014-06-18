@@ -24,7 +24,8 @@ OTHER_FILES += qml/harbour-2048.qml \
     harbour-2048.desktop \
     qml/pages/MainPage.qml \
     qml/storage.js \
-    qml/SailTileDesign.qml
+    qml/SailTileDesign.qml \
+    qml/pages/ChangeMode.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
