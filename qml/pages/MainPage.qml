@@ -85,25 +85,23 @@ Page {
             }
 
             PageHeader {
-                title: (app.game ? "Best Tile : %1".arg (app.game.bestTile) : "....");
+                title: "Mode : " + app.mode + " " + app.difficulty + " " + app.size;
             }
-            Label {
-                color: Theme.highlightColor
-                font.family: Theme.fontFamilyHeading
-                text: "Mode : " + app.mode + " " + app.difficulty + " " + app.size;
-                anchors {
-                    left: parent.left;
-                    right: parent.right;
+            Row {
+                spacing: Theme.paddingMedium;
+                anchors.horizontalCenter: parent.horizontalCenter;
+
+                width: parent.width*.6;
+                height: 80;
+                ScoreItem {
+                    label: "TILE";
+                    value: app.game.bestTile;
                 }
-            }
-            Label {
-                color: Theme.highlightColor
-                font.family: Theme.fontFamilyHeading
-                text: "Best tile ever : %1".arg (app.bestEver);
-                anchors {
-                    left: parent.left;
-                    right: parent.right;
+                ScoreItem {
+                    label: "BEST";
+                    value: app.bestEver;
                 }
+
             }
             Label {
                 text: (app.messages [app.currentMessage] || "");
