@@ -2,6 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
 import "../Game";
+import "..";
 import "../storage.js" as Storage;
 
 Page {
@@ -163,6 +164,7 @@ Page {
         id: gameComponent;
 
         Game {
+            design: Component { SailTileDesign {} }
             anchors {
                 fill: parent;
                 margins: Theme.paddingLarge;
