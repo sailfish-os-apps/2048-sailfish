@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.LocalStorage 2.0
+import ".."
 import "../storage.js" as Storage;
 
 Page {
@@ -13,104 +14,30 @@ Page {
         PageHeader {
             title: "Change Mode"
         }
-
-        BackgroundItem {
-            id: difficulty;
-            width: parent.width
-            height: menuDifficulty.visible ? menuDifficulty.height + labelDifficulty.height : labelDifficulty.height
-
-            Label {
-                id: labelDifficulty;
-                text: "Difficulty : " + app.difficulty;
-                color: Theme.primaryColor;
-                antialiasing: true;
-                fontSizeMode: Text.Fit;
-                font.pixelSize: Theme.fontSizeHuge;
-                anchors.left: parent.left
-                anchors.margins: Theme.paddingLarge;
-                ContextMenu {
-                    id: menuDifficulty;
-                    MenuItem {
-                        text: "Easy"
-                        onClicked: {app.game.save(); app.difficulty = "Easy";}
-                    }
-                    MenuItem {
-                        text: "Normal"
-                        onClicked: {app.game.save(); app.difficulty = "Normal";}
-                    }
-                    MenuItem {
-                        text: "Hard"
-                        onClicked: {app.game.save(); app.difficulty = "Hard";}
-                    }
-                }
-            }
-            onPressAndHold: menuDifficulty.show(difficulty);
+        Setting {
+            text: "Difficulty : " + app.difficulty;
+            options: [
+                ["Easy", function () {app.game.save(); app.difficulty = "Easy";}],
+                ["Normal", function () {app.game.save(); app.difficulty = "Normal";}],
+                ["Hard", function () {app.game.save(); app.difficulty = "Hard";}],
+            ]
         }
 
-        BackgroundItem {
-            id: gameMode;
-            width: parent.width
-            height: menuMode.visible ? menuMode.height + labelMode.height : labelMode.height
-
-            Label {
-                id: labelMode;
-                text: "Mode : " + app.mode;
-                color: Theme.primaryColor;
-                antialiasing: true;
-                fontSizeMode: Text.Fit;
-                font.pixelSize: Theme.fontSizeHuge;
-                anchors.left: parent.left
-                anchors.margins: Theme.paddingLarge;
-                ContextMenu {
-                    id: menuMode;
-                    MenuItem {
-                        text: "Classic"
-                        onClicked: {app.game.save(); app.mode = "Classic";}
-                    }
-                }
-            }
-            onPressAndHold: menuMode.show(gameMode);
+        Setting {
+            text: "Mode : " + app.mode;
+            options: [
+                ["Classic", function () {app.game.save(); app.mode = "Classic";}],
+            ]
         }
-
-        BackgroundItem {
-            id: size;
-            width: parent.width
-            height: menuSize.visible ? menuSize.height + labelSize.height : labelSize.height
-
-            Label {
-                id: labelSize;
-                text: "Size : " + app.size;
-                color: Theme.primaryColor;
-                antialiasing: true;
-                fontSizeMode: Text.Fit;
-                font.pixelSize: Theme.fontSizeHuge;
-                anchors.left: parent.left
-                anchors.margins: Theme.paddingLarge;
-                ContextMenu {
-                    id: menuSize;
-                    MenuItem {
-                        text: "2"
-                        onClicked: {app.game.save(); app.size = 2}
-                    }
-                    MenuItem {
-                        text: "3"
-                        onClicked: {app.game.save(); app.size = 3}
-                    }
-                    MenuItem {
-                        text: "4"
-                        onClicked: {app.game.save(); app.size = 4}
-                    }
-                    MenuItem {
-                        text: "5"
-                        onClicked: {app.game.save(); app.size = 5}
-                    }
-                    MenuItem {
-                        text: "6"
-                        onClicked: {app.game.save(); app.size = 6}
-                    }
-                }
-            }
-            onPressAndHold: menuSize.show(size);
+        Setting {
+            text: "Size : " + app.size;
+            options: [
+                ["2", function () {app.game.save(); app.size = 2}],
+                ["3", function () {app.game.save(); app.size = 3}],
+                ["4", function () {app.game.save(); app.size = 4}],
+                ["5", function () {app.game.save(); app.size = 5}],
+                ["6", function () {app.game.save(); app.size = 6}],
+            ]
         }
     }
 }
