@@ -27,6 +27,7 @@ Page {
             text: "Mode : " + app.mode;
             options: [
                 ["Classic", function () {app.game.save(); app.mode = "Classic";}],
+                ["Adventure", function () {app.game.save(); app.mode = "Adventure";}],
             ]
         }
         Setting {
