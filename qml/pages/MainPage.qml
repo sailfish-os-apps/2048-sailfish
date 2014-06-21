@@ -23,6 +23,17 @@ Page {
         else {
             app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
         }
+
+        var bestBestTile      = Storage.getLabel ("bestBestTile" + app.mode + app.difficulty + app.size);
+        var bestClassicScore  = Storage.getLabel ("bestClassicScore" + app.mode + app.difficulty + app.size);
+        var bestMoves         = Storage.getLabel ("bestMoves" + app.mode + app.difficulty + app.size);
+        var bestImprovedScore = Storage.getLabel ("bestImprovedScore" + app.mode + app.difficulty + app.size);
+
+        if (bestBestTile)      { app.bestBestTile      = bestBestTile; }
+        if (bestClassicScore)  { app.bestClassicScore  = bestClassicScore; }
+        if (bestMoves)         { app.bestMoves         = bestMoves; }
+        if (bestImprovedScore) { app.bestImprovedScore = bestImprovedScore; }
+
         dealWithMessage ();
     }
 
@@ -99,7 +110,7 @@ Page {
                 }
                 ScoreItem {
                     label: "BEST";
-                    value: app.bestEver;
+                    value: app.bestBestTile;
                 }
 
             }
@@ -137,18 +148,19 @@ Page {
                 margins: Theme.paddingLarge;
             }
             onBestTileChanged: {
-                var bestEver = Storage.getLabel ("best" + app.size);
-                console.debug (bestEver);
-                if (bestEver) {
-                    app.bestEver = bestEver;
-                }
-                if (!bestEver || bestTile > bestEver) {
-                    Storage.setLabel ("best" + app.size, bestTile);
-                    app.bestEver = bestTile;
+                if (bestTile > app.bestBestTile) {
+                    app.bestBestTile = bestTile;
                 }
                 dealWithMessage();
             }
-            onSave: { Storage.setLabel (app.mode + app.difficulty + app.size, initState.join (",")); }
+            onSave: {
+                Storage.setLabel ("bestBestTile" + app.mode + app.difficulty + app.size,      app.bestBestTile);
+                Storage.setLabel ("bestClassicScore" + app.mode + app.difficulty + app.size,  app.bestClassicScore);
+                Storage.setLabel ("bestMoves" + app.mode + app.difficulty + app.size,         app.bestMoves);
+                Storage.setLabel ("bestImprovedScore" + app.mode + app.difficulty + app.size, app.bestImprovedScore);
+
+                Storage.setLabel (app.mode + app.difficulty + app.size,                       initState.join (","));
+            }
         }
     }
 }
