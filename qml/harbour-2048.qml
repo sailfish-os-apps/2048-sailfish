@@ -31,8 +31,12 @@ ApplicationWindow {
     property string mode        : "Classic";
     property int blizt          : 0;
     property Item game          : null;
-    property int bestEver       : 2;
-    property int highscore      : 0;
+
+    property int bestBestTile      : 2;
+    property int bestClassicScore  : 0;
+    property int bestMoves         : 0;
+    property int bestImprovedScore : 0;
+
     property int currentMessage : 0;
     property var messages: [
         "Can you reach the 2048 tile?",
