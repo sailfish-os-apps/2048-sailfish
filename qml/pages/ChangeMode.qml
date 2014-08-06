@@ -31,6 +31,13 @@ Page {
             ]
         }
         Setting {
+            text: "Tile format : " + app.tileFormat;
+            options: [
+                ["TetraTile", function () {app.game.save(); app.tileFormat = "TetraTile";}],
+                ["HexaTile", function () {app.game.save(); app.tileFormat = "HexaTile";}],
+            ]
+        }
+        Setting {
             text: "Size : " + app.size;
             options: [
                 ["2", function () {app.game.save(); app.size = 2}],

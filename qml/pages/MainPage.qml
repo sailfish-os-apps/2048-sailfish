@@ -18,10 +18,20 @@ Page {
             var t = "";
             var game = gameValues.split (",");
             console.debug (game);
-            app.game = gameComponent.createObject (gameContainer, { "size" : app.size, "initState": game });
+            if (app.tileFormat === "HexaTile") {
+                app.game = hexaGameComponent.createObject (gameContainer, { "size" : app.size, "initState": game });
+            }
+            else {
+                app.game = gameComponent.createObject (gameContainer, { "size" : app.size, "initState": game });
+            }
         }
         else {
-            app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
+            if (app.tileFormat === "HexaTile") {
+                app.game = hexaGameComponent.createObject (gameContainer, { "size" : app.size });
+            }
+            else {
+                app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
+            }
         }
         dealWithMessage ();
     }
@@ -52,6 +62,7 @@ Page {
         onSizeChanged       : { loadGame (); }
         onDifficultyChanged : { loadGame (); }
         onModeChanged       : { loadGame (); }
+        onTileFormatChanged : { loadGame (); }
     }
     SilicaFlickable {
         id: control;
@@ -131,6 +142,31 @@ Page {
 
         Game {
             design: Component { SailTileDesign {} }
+            mode: modes[app.mode + app.difficulty]
+            anchors {
+                fill: parent;
+                margins: Theme.paddingLarge;
+            }
+            onBestTileChanged: {
+                var bestEver = Storage.getLabel ("best" + app.size);
+                console.debug (bestEver);
+                if (bestEver) {
+                    app.bestEver = bestEver;
+                }
+                if (!bestEver || bestTile > bestEver) {
+                    Storage.setLabel ("best" + app.size, bestTile);
+                    app.bestEver = bestTile;
+                }
+                dealWithMessage();
+            }
+            onSave: { Storage.setLabel (app.mode + app.difficulty + app.size, initState.join (",")); }
+        }
+    }
+    Component {
+        id: hexaGameComponent;
+
+        HexaGame {
+            design: Component { SailHexaDesign {} }
             mode: modes[app.mode + app.difficulty]
             anchors {
                 fill: parent;

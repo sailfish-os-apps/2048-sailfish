@@ -29,6 +29,7 @@ ApplicationWindow {
     property int size           : 4;
     property string difficulty  : "Normal";
     property string mode        : "Classic";
+    property string tileFormat  : "TetraTile"
     property int blizt          : 0;
     property Item game          : null;
     property int bestEver       : 2;
