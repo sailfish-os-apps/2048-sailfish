@@ -27,7 +27,8 @@ OTHER_FILES += qml/harbour-2048.qml \
     qml/SailTileDesign.qml \
     qml/pages/ChangeMode.qml \
     qml/ScoreItem.qml \
-    qml/Setting.qml
+    qml/Setting.qml \
+    qml/SailHexaDesign.qml
 
 # to disable building translations every time, comment out the
 # following CONFIG line
