@@ -34,16 +34,6 @@ ApplicationWindow {
     property Item game          : null;
     property int bestEver       : 2;
     property int highscore      : 0;
-    property int currentMessage : 0;
-    property var messages: [
-        "Can you reach the 2048 tile?",
-        "Alright, you got it, but seriously, wasn't it too simple? Say you reach the next one, 4096",
-        "Wanna go easy? why not, but still, can you reach the 256 tile?",
-        "Are you missing kindergarten? You have to reach the 16 tile",
-        "Bravo!!! You're sooooo good",
-        "No! Don't be silly, a one-sized board? I won't allow it, isn't 2 easy enough?",
-        "NOT BAD!! To the next one! The four-sized board"
-    ];
 }
 
 

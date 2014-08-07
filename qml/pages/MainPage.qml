@@ -33,28 +33,6 @@ Page {
                 app.game = gameComponent.createObject (gameContainer, { "size" : app.size });
             }
         }
-        dealWithMessage ();
-    }
-
-    function dealWithMessage () {
-        if (size === 2 && currentMessage !== 5) {
-            currentMessage = 3;
-        }
-        if (size === 3) {
-            currentMessage = 2;
-        }
-        if (size === 4) {
-            currentMessage = 0;
-        }
-        if (app.size === 2 && app.game && app.game.bestTile >= 16){
-            app.currentMessage = 4;
-        }
-        if (app.size === 3 && app.game && app.game.bestTile >= 256) {
-            app.currentMessage = 6;
-        }
-        if (app.size === 4 && app.game && app.game.bestTile >= 2048) {
-            app.currentMessage = 1;
-        }
     }
 
     Connections {
@@ -114,7 +92,7 @@ Page {
                 }
             }
             Label {
-                text: (app.messages [app.currentMessage] || "");
+                text: ""
                 color: Theme.primaryColor
                 font.family: Theme.fontFamilyHeading;
                 font.pixelSize: Theme.fontSizeSmall;
@@ -156,7 +134,6 @@ Page {
                     Storage.setLabel ("best" + app.mode + app.tileFormat + app.difficulty + app.size, bestTile);
                     app.bestEver = bestTile;
                 }
-                dealWithMessage();
             }
             onSave: { Storage.setLabel (app.mode + app.tileFormat + app.difficulty + app.size, initState.join (",")); }
         }
@@ -181,7 +158,6 @@ Page {
                     Storage.setLabel ("best" + app.mode + app.tileFormat + app.difficulty + app.size, bestTile);
                     app.bestEver = bestTile;
                 }
-                dealWithMessage();
             }
             onSave: { Storage.setLabel (app.mode + app.tileFormat + app.difficulty + app.size, initState.join (",")); }
         }
