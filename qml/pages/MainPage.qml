@@ -13,7 +13,7 @@ Page {
         if (app.game) {
             app.game.destroy ();
         }
-        var gameValues = Storage.getLabel (app.mode + app.difficulty + app.size);
+        var gameValues = Storage.getLabel (app.mode + app.tileFormat + app.difficulty + app.size);
         if (gameValues) {
             var t = "";
             var game = gameValues.split (",");
@@ -112,7 +112,6 @@ Page {
                     label: "BEST";
                     value: app.bestEver;
                 }
-
             }
             Label {
                 text: (app.messages [app.currentMessage] || "");
@@ -148,18 +147,18 @@ Page {
                 margins: Theme.paddingLarge;
             }
             onBestTileChanged: {
-                var bestEver = Storage.getLabel ("best" + app.size);
+                var bestEver = Storage.getLabel ("best" + app.mode + app.tileFormat + app.difficulty + app.size);
                 console.debug (bestEver);
                 if (bestEver) {
                     app.bestEver = bestEver;
                 }
                 if (!bestEver || bestTile > bestEver) {
-                    Storage.setLabel ("best" + app.size, bestTile);
+                    Storage.setLabel ("best" + app.mode + app.tileFormat + app.difficulty + app.size, bestTile);
                     app.bestEver = bestTile;
                 }
                 dealWithMessage();
             }
-            onSave: { Storage.setLabel (app.mode + app.difficulty + app.size, initState.join (",")); }
+            onSave: { Storage.setLabel (app.mode + app.tileFormat + app.difficulty + app.size, initState.join (",")); }
         }
     }
     Component {
@@ -179,12 +178,12 @@ Page {
                     app.bestEver = bestEver;
                 }
                 if (!bestEver || bestTile > bestEver) {
-                    Storage.setLabel ("best" + app.size, bestTile);
+                    Storage.setLabel ("best" + app.mode + app.tileFormat + app.difficulty + app.size, bestTile);
                     app.bestEver = bestTile;
                 }
                 dealWithMessage();
             }
-            onSave: { Storage.setLabel (app.mode + app.difficulty + app.size, initState.join (",")); }
+            onSave: { Storage.setLabel (app.mode + app.tileFormat + app.difficulty + app.size, initState.join (",")); }
         }
     }
 }
