@@ -17,11 +17,13 @@ ApplicationWindow {
         var tileFormat = Storage.getLabel ("tileFormat");
         var difficulty = Storage.getLabel ("difficulty");
         var mode       = Storage.getLabel ("mode");
+        var score      = Storage.getLabel ("score");
 
         if (size)       { app.size       = size; }
         if (tileFormat) { app.tileFormat = tileFormat }
         if (difficulty) { app.difficulty = difficulty; }
         if (mode)       { app.mode       = mode; }
+        if (score)      { app.score      = score; }
 
         var bestBestTile      = Storage.getLabel ("bestBestTile" + app.mode + app.difficulty + app.size);
         var bestClassicScore  = Storage.getLabel ("bestClassicScore" + app.mode + app.difficulty + app.size);
@@ -32,6 +34,7 @@ ApplicationWindow {
         if (bestClassicScore)  { app.bestClassicScore  = bestClassicScore; }
         if (bestMoves)         { app.bestMoves         = bestMoves; }
         if (bestImprovedScore) { app.bestImprovedScore = bestImprovedScore; }
+        app.mode = "Classic";
     }
 
     Component.onDestruction: {
@@ -40,6 +43,7 @@ ApplicationWindow {
         Storage.setLabel ("tileFormat", app.tileFormat);
         Storage.setLabel ("difficulty", app.difficulty);
         Storage.setLabel ("mode",       app.mode);
+        Storage.setLabel ("score",      app.score);
     }
 
     property int size           : 4;
@@ -48,6 +52,7 @@ ApplicationWindow {
     property string tileFormat  : "TetraTile"
     property int blizt          : 0;
     property Item game          : null;
+    property string score       : "ClassicScore";
 
     property int bestBestTile      : 2;
     property int bestClassicScore  : 0;
