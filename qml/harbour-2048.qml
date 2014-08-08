@@ -52,7 +52,7 @@ ApplicationWindow {
     property string tileFormat  : "TetraTile"
     property int blizt          : 0;
     property Item game          : null;
-    property string score       : "ClassicScore";
+    property int score          : 0;
 
     property int bestBestTile      : 2;
     property int bestClassicScore  : 0;

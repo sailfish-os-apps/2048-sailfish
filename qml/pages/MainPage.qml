@@ -97,30 +97,52 @@ Page {
             PageHeader {
                 title: "Mode : " + app.mode + " " + app.difficulty + " " + app.size;
             }
-            Row {
-                spacing: Theme.paddingMedium;
-                anchors.horizontalCenter: parent.horizontalCenter;
-
-                width: parent.width*.6;
+            ListView {
+                id: scoreList
+                width: page.width;
                 height: 80;
-                ScoreItem {
-                    label: app.score == "ClassicScore" ?  "SCORE"    :
-                           app.score == "BestTile" ?      "TILE"     :
-                           app.score == "Moves" ?         "MOVES"    :
-                           app.score == "ImprovedScore" ? "IMPSCORE" : "";
-                    value: app.score == "ClassicScore" ?  app.game.classicScore  :
-                           app.score == "BestTile" ?      app.game.bestTile      :
-                           app.score == "Moves" ?         app.game.moves         :
-                           app.score == "ImprovedScore" ? app.game.improvedScore : "";
+                orientation : ListView.Horizontal
+                clip: true;
+                model: [{"label":"SCORE",    "value": app.game.classicScore, "best": app.bestClassicScore},
+                        {"label":"TILE",     "value": app.game.bestTile, "best": app.bestBestTile},
+                        {"label":"MOVES",    "value": app.game.moves, "best": app.bestMoves},
+                        {"label":"IMPSCORE", "value": app.game.improvedScore, "best": app.bestImprovedScore}]
+
+                property int index: app.score;
+
+                delegate: Rectangle {
+                    width: page.width;
+                    height: parent.height;
+                    color: "transparent"
+                    Row {
+                        spacing: Theme.paddingMedium;
+                        anchors.horizontalCenter: parent.horizontalCenter;
+
+                        width: parent.width*.6;
+                        height: 80;
+                        ScoreItem {
+                            label: modelData["label"];
+                            value: modelData["value"];
+                        }
+                        ScoreItem {
+                            label: "BEST";
+                            value: modelData["best"];
+                        }
+                    }
                 }
-                ScoreItem {
-                    label: "BEST";
-                    value: app.score == "ClassicScore" ?  app.bestClassicScore  :
-                           app.score == "BestTile" ?      app.bestBestTile      :
-                           app.score == "Moves" ?         app.bestMoves         :
-                           app.score == "ImprovedScore" ? app.bestImprovedScore : "";
+                onDragEnded: {
+                    if (contentX > index * width && index < model.length - 1) { app.score++; }
+                    else if (contentX < index * width && index > 0) { app.score--; }
+                    else { contentX = index * width;}
                 }
+
+                onModelChanged: positionViewAtIndex(index, ListView.Beginning)
+
+                onIndexChanged: contentX = index * width;
+
+                Behavior on contentX { PropertyAnimation { duration: 200;} }
             }
+
             Label {
                 text: ""
                 color: Theme.primaryColor
