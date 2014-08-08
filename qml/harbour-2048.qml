@@ -14,10 +14,12 @@ ApplicationWindow {
         Storage.initialize();
 
         var size       = Storage.getLabel ("size");
+        var tileFormat = Storage.getLabel ("tileFormat");
         var difficulty = Storage.getLabel ("difficulty");
         var mode       = Storage.getLabel ("mode");
 
         if (size)       { app.size       = size; }
+        if (tileFormat) { app.tileFormat = tileFormat }
         if (difficulty) { app.difficulty = difficulty; }
         if (mode)       { app.mode       = mode; }
 
@@ -35,6 +37,7 @@ ApplicationWindow {
     Component.onDestruction: {
         game.save();
         Storage.setLabel ("size",       app.size);
+        Storage.setLabel ("tileFormat", app.tileFormat);
         Storage.setLabel ("difficulty", app.difficulty);
         Storage.setLabel ("mode",       app.mode);
     }
