@@ -75,6 +75,13 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Drop data";
+                font.family: Theme.fontFamilyHeading;
+                onClicked: Storage.destroyData();
+                enabled: false;
+                visible: enabled;
+            }
+            MenuItem {
                 text: "Change Mode";
                 font.family: Theme.fontFamilyHeading;
                 onClicked: pageStack.push("ChangeMode.qml");
