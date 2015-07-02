@@ -33,5 +33,5 @@ BackgroundItem {
             }
         }
     }
-    onPressAndHold: menu.show(setting)
+    onPressed: menu.show(setting)
 }
