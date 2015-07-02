@@ -123,10 +123,17 @@ Page {
                     color: "transparent"
                     Row {
                         spacing: Theme.paddingMedium;
-                        anchors.horizontalCenter: parent.horizontalCenter;
+                        anchors.left: parent.left
 
                         width: parent.width*.6;
                         height: 80;
+
+                        IconButton {
+                            anchors.verticalCenter: parent.verticalCenter;
+                            icon.source: "image://theme/icon-m-left"
+                            enabled: index > 0;
+                            onClicked: {app.score--;}
+                        }
                         ScoreItem {
                             label: modelData["label"];
                             value: modelData["value"];
@@ -134,6 +141,12 @@ Page {
                         ScoreItem {
                             label: "BEST";
                             value: modelData["best"];
+                        }
+                        IconButton {
+                            anchors.verticalCenter: parent.verticalCenter;
+                            icon.source: "image://theme/icon-m-right"
+                            enabled: index < scoreList.model.length - 1;
+                            onClicked: {app.score++;}
                         }
                     }
                 }
